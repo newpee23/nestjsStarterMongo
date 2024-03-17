@@ -22,7 +22,7 @@ export class OrdersService {
     }
 
     const result = new this.orderModel(createOrderDto);
-    return result;
+    return result.save();
   }
 
   async findAll(): Promise<Order[]> {
