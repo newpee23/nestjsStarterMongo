@@ -1,10 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  
+  // เพิ่ม cookie parser
+  app.use(cookieParser());
   // Set up global validation pipe
   app.useGlobalPipes(
     new ValidationPipe({

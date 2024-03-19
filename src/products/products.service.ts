@@ -20,7 +20,7 @@ export class ProductsService {
     return result.save();
   }
 
-  async findProductByName(name: string, _id?: string): Promise<Product> {
+  async findProductByName(name: string, _id?: string): Promise<ProductDocument> {
     if (_id) {
       return this.productModel.findOne({
         name,
