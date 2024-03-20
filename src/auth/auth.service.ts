@@ -22,7 +22,7 @@ export class AuthService {
     return null;
   }
 
-  async login(payload: userLoginDto) {
+  async login(payload: userLoginDto): Promise<{ accessToken: string; }> {
     return {
       accessToken: this.jwtService.sign(payload),
     };

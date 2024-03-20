@@ -33,7 +33,7 @@ export class OrdersService {
     return this.orderModel.findById(id).populate('product').exec();
   }
 
-  async removeAll() {
+  async removeAll(): Promise<{ message: string }> {
     await this.orderModel.deleteMany().exec();
     return { message: 'Delete orders successful' };
   }

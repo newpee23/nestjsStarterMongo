@@ -4,12 +4,13 @@ import {
   Body,
   Get,
   UseGuards,
-  Request,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterDto } from './dto/register';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { userLoginDto } from 'src/auth/dto/userLogin';
+import { Request } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -22,16 +23,18 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/profile')
-  async getProfile(@Request() req) {
-    const user: userLoginDto = req.user;
+  async getProfile(@Req() req: Request) {
+    
+    const user = req.user as userLoginDto;
     const result = await this.userService.findByEmail(user.email);
     return result;
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/profileCookie')
-  async getProfileCookie(@Request() req) {
-    const user: userLoginDto = req.user;
+  async getProfileCookie(@Req() req: Request) {
+
+    const user = req.user as userLoginDto;
     const result = await this.userService.findByEmail(user.email);
     return result;
   }

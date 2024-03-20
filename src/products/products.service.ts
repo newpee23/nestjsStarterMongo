@@ -38,21 +38,16 @@ export class ProductsService {
     return this.productModel.findById(id).exec();
   }
 
-  async update(
-    id: string,
-    updateProductDto: UpdateProductDto,
-  ): Promise<Product> {
+  async update(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
     const productName = await this.findProductByName(updateProductDto.name, id);
     if (productName) {
       throw new BadRequestException(`Product with name '${updateProductDto.name}' already exists`);
     }
-    const result = this.productModel
-      .findByIdAndUpdate(id, updateProductDto, { new: true })
-      .exec();
+    const result = this.productModel.findByIdAndUpdate(id, updateProductDto, { new: true }).exec();
     return result;
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<{ message: string }> {
     const result = await this.productModel.findByIdAndDelete(id).exec();
     if (!result) {
       throw new NotFoundException('id not found');
